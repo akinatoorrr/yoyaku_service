@@ -10,5 +10,8 @@ class BookingsViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     http_method_names = ('get', 'post', 'delete')
 
     def get_queryset(self):
+        queryset = BookingModel.objects.all()
         room_id = self.request.query_params.get('room_id')
-        return BookingModel.objects.filter(room=room_id)
+        if room_id is not None:
+            queryset = queryset.filter(room_id=room_id)
+        return queryset
