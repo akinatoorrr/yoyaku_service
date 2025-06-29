@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:15
+    env_file:
+      - .env.docker       # здесь только POSTGRES_* для инициализации
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  backend:
+    build: .
+    #env_file:
+    #  - yoyaku/.env.local        # подхватит все DB_* для Pydantic
+    environment:
+      IN_DOCKER: "1"
+      ENV_FILE: /app/.env.local
+    volumes:
+      - .:/app:delegated
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: sh -c "poetry run python yoyaku/manage.py migrate && poetry run python yoyaku/manage.py runserver 0.0.0.0:8000"
+
+volumes:
+  pg_data:
