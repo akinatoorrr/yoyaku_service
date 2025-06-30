@@ -6,4 +6,7 @@ def test_date_validation(api_client, create_room):
         'date_end': '2025-12-10'
     }, format='json')
     assert response.status_code == 400
-    assert 'Дата начала должна быть раньше даты окончания.' in str(response.content)
+    assert (
+        'Дата начала должна быть раньше даты окончания.'
+        in response.content.decode('utf-8')
+    )
