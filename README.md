@@ -17,7 +17,7 @@
 
 ---
 
-## 🧪 Примеры curl-запросов
+## Примеры curl-запросов
 
 ### ▶ Добавление номера
 
@@ -28,7 +28,7 @@ curl -X POST http://localhost:8000/rooms/ \
   -d "price_per_night=4500"
 ````
 
-📥 Ответ:
+Ответ:
 
 ```json
 {
@@ -65,7 +65,7 @@ curl -X POST http://localhost:8000/bookings/ \
   -d "date_end=2025-07-12"
 ```
 
-📥 Ответ:
+Ответ:
 
 ```json
 {
@@ -84,7 +84,7 @@ curl -X POST http://localhost:8000/bookings/ \
 curl -X GET "http://localhost:8000/bookings/?room_id=1"
 ```
 
-📥 Ответ:
+Ответ:
 
 ```json
 [
@@ -99,15 +99,15 @@ curl -X GET "http://localhost:8000/bookings/?room_id=1"
 
 ---
 
-## 🚀 Запуск проекта
+## Запуск проекта
 
-### 📦 Через Docker (рекомендуется)
+### Через Docker (рекомендуется)
 
 ```bash
 docker-compose up --build
 ```
 
-### 🛠 Локально
+### Локально
 
 1. Установите зависимости:
 
