@@ -6,7 +6,7 @@ ENV POETRY_VERSION=2.1.3
 RUN pip install --upgrade pip \
  && pip install "poetry==$POETRY_VERSION"
 
-# RUN poetry self add poetry-plugin-dotenv
+
 
 WORKDIR /app
 
