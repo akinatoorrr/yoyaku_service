@@ -3,12 +3,14 @@ FROM python:3.12-slim
 
 # 1) Poetry
 ENV POETRY_VERSION=2.1.3
+ENV PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip \
  && pip install "poetry==$POETRY_VERSION"
 
 
 
-WORKDIR /app
+WORKDIR /app/yoyaku
+
 
 # 2) Копируем только конфиги зависимостей
 COPY pyproject.toml poetry.lock /app/
@@ -23,4 +25,4 @@ COPY . /app
 EXPOSE 8000
 
 # 5) Запуск Django
-CMD ["poetry", "run", "python", "yoyaku/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "poetry run gunicorn yoyaku.wsgi:application --bind 0.0.0.0:8000 --workers=${GUNICORN_WORKERS:-4} --access-logfile - --error-logfile -"]

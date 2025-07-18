@@ -16,13 +16,19 @@ services:
     environment:
       IN_DOCKER: "1"
       ENV_FILE: /app/.env.local
+      GUNICORN_WORKERS: 4
     volumes:
       - .:/app:delegated
     ports:
       - "8000:8000"
     depends_on:
       - db
-    command: sh -c "poetry run python yoyaku/manage.py migrate && poetry run python yoyaku/manage.py runserver 0.0.0.0:8000"
+    command: >
+     sh -c "poetry run python manage.py migrate &&
+         poetry run gunicorn yoyaku.wsgi:application --bind 0.0.0.0:8000 --workers=4 --access-logfile - --error-logfile -"
+
+
+
 
 volumes:
   pg_data:
