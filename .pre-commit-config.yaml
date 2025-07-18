@@ -2,6 +2,9 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.4
     hooks:
+      - id: ruff-format
+        name: ruff-format
+
       - id: ruff
         name: ruff (lint + isort + bandit)
         args: [--fix]  # автоисправление ошибок и сортировка импортов
