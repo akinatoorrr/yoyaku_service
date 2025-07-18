@@ -14,4 +14,13 @@ class BookingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Дата начала должна быть раньше даты окончания."
             )
+        qs = BookingModel.objects.filter(
+            room=data["room"],
+            date_start__lt=data["date_end"],
+            date_end__gt=data["date_start"],
+        )
+        if qs.exists():
+            raise serializers.ValidationError(
+                "Номер уже забронирован в указанный период."
+            )
         return data
