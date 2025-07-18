@@ -7,6 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env_path = Path(os.getenv("ENV_FILE", BASE_DIR / ".env.local"))
 
+
 class Settings(BaseSettings):
     db_name: str
     db_user: str
@@ -18,6 +19,7 @@ class Settings(BaseSettings):
         env_file=env_path,
         env_prefix="DB_",
         case_sensitive=False,
+        extra="ignore",
     )
 
     def __init__(self, **values):
@@ -27,4 +29,15 @@ class Settings(BaseSettings):
             self.db_host = "localhost"
 
 
+class SecretSettings(BaseSettings):
+    django_secret_key: str = Field(..., alias="DJANGO_SECRET_KEY")
+
+    model_config = SettingsConfigDict(
+        env_file=env_path,
+        case_sensitive=False,
+        extra="ignore",
+    )
+
+
 settings = Settings()
+secrets = SecretSettings()
