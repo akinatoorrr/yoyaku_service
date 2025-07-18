@@ -4,12 +4,12 @@ from django.urls import include, path
 
 
 def health(request):
-    return HttpResponse('Ok', status=200)
+    return HttpResponse("Ok", status=200)
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('bookings/', include('bookings.urls')),
-    path('rooms/', include('rooms.urls')),
-    path('health/', health),
+    path("admin/", admin.site.urls),
+    path("bookings/", include("bookings.urls")),
+    path("rooms/", include("rooms.urls")),
+    path("health/", health),
 ]
