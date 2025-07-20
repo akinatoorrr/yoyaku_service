@@ -8,6 +8,9 @@ class RoomModel(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="дата добавления номера"
     )
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name="дата изменения номера"
+    )
 
     class Meta:
         verbose_name = "номер"
